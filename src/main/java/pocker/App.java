@@ -66,9 +66,9 @@ public class App {
             CommandLine cmd = parser.parse(options, args);
 
             boolean debug = cmd.hasOption("d");
-
+            var default_resource_path = App.class.getClassLoader().getResource("patterns");
             var dataPath = Path.of(cmd.getOptionValue("p"));
-            var homePath = cmd.getOptionValue("c", "./patterns");
+            var homePath = cmd.getOptionValue("c", default_resource_path.getPath());
             var rankPath = Paths.get(homePath, "rank");
             var suitPath = Paths.get(homePath, "suit");
 
