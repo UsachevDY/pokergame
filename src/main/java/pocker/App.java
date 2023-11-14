@@ -66,9 +66,9 @@ public class App {
             CommandLine cmd = parser.parse(options, args);
 
             boolean debug = cmd.hasOption("d");
-            var default_resource_path = App.class.getClassLoader().getResource("patterns");
+            var defaultResourcePath = App.class.getClassLoader().getResource("patterns");
             var dataPath = Path.of(cmd.getOptionValue("p"));
-            var homePath = cmd.getOptionValue("c", default_resource_path.getPath());
+            var homePath = cmd.getOptionValue("c", defaultResourcePath.getPath());
             var rankPath = Paths.get(homePath, "rank");
             var suitPath = Paths.get(homePath, "suit");
 
@@ -81,12 +81,12 @@ public class App {
 
 
             DirectoryStream<Path> stream = null;
-            int amount_of_files = 0;
+            int amountOfFiles = 0;
             stream = Files.newDirectoryStream(dataPath, "*.png");
 
             var start = System.currentTimeMillis();
             for (var path : stream) {
-                amount_of_files++;
+                amountOfFiles++;
                 var image = loadImage(path.toAbsolutePath().toString());
                 var result = estimator.recognize(image);
                 if (debug) {
@@ -104,7 +104,7 @@ public class App {
             }
 
             if (debug) {
-                System.out.println("Time per screen: " + (System.currentTimeMillis() - start) / amount_of_files + " mc");
+                System.out.println("Time per screen: " + (System.currentTimeMillis() - start) / amountOfFiles + " mc");
                 if (target.equals(predictionList)) {
                     System.out.println("F1: 1.0");
                 } else {

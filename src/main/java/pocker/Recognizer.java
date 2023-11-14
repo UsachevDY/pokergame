@@ -54,11 +54,11 @@ public class Recognizer {
         return result;
     }
 
-    private int[][] getSubMatrix(int[][] matrix, int st_row, int fh_row, int st_col, int fh_col) {
-        int[][] subMatrix = new int[fh_row - st_row][fh_col - st_col];
-        for (int i = st_row; i < fh_row; i++) {
-            for (int j = st_col; j < fh_col; j++) {
-                subMatrix[i - st_row][j - st_col] = matrix[i][j];
+    private int[][] getSubMatrix(int[][] matrix, int stRow, int fhRow, int stCol, int fhCol) {
+        int[][] subMatrix = new int[fhRow - stRow][fhCol - stCol];
+        for (int i = stRow; i < fhRow; i++) {
+            for (int j = stCol; j < fhCol; j++) {
+                subMatrix[i - stRow][j - stCol] = matrix[i][j];
             }
 
         }
@@ -86,13 +86,13 @@ public class Recognizer {
         List<int[][]> cards = new ArrayList<>();
         for (int card = 0; card < cardPositions.length; card++) {
             BufferedImage cardImage = image.getSubimage(cardPositions[card][0], cardPositions[card][1], cardSizeX, cardSizeY);
-            var grey_card = rgb2gray(cardImage, true, 150);
-            if (calculateSumOfElements(grey_card) != grey_card.length * grey_card[0].length * 255) {
-                cards.add(grey_card);
+            var greyCard = rgb2gray(cardImage, true, 150);
+            if (calculateSumOfElements(greyCard) != greyCard.length * greyCard[0].length * 255) {
+                cards.add(greyCard);
             } else {
-                grey_card = rgb2gray(cardImage, true, 100);
-                if (calculateSumOfElements(grey_card) != grey_card.length * grey_card[0].length * 255) {
-                    cards.add(grey_card);
+                greyCard = rgb2gray(cardImage, true, 100);
+                if (calculateSumOfElements(greyCard) != greyCard.length * greyCard[0].length * 255) {
+                    cards.add(greyCard);
                 }
             }
 
