@@ -40,3 +40,5 @@ build/
 .idea/
 data/
 ТЗ.jpeg
+app/
+release/
