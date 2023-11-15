@@ -8,13 +8,13 @@ import java.util.stream.IntStream;
 
 public class Recognizer {
 
-    private final int cardSizeX = 60;
-    private final int cardSizeY = 80;
+    private final int CARD_SIZE_X = 60;
+    private final int CARD_SIZE_Y = 80;
 
-    private final int suitShiftX = 19;
-    private final int suitShiftY = 43;
+    private final int SUIT_SHIFT_X = 19;
+    private final int SUIT_SHIFT_Y = 43;
 
-    private int[][] cardPositions = {
+    private final int[][] cardPositions = {
             {147, 590},
             {219, 590},
             {290, 590},
@@ -22,9 +22,9 @@ public class Recognizer {
             {434, 590}
     };
 
-    private Map<String, int[][]> suitPatterns;
-    private Map<String, int[][]> rankPatterns;
-    private MistakeEstimator estimator;
+    private final Map<String, int[][]> suitPatterns;
+    private final Map<String, int[][]> rankPatterns;
+    private final MistakeEstimator estimator;
 
 
     public Recognizer(Map<String, int[][]> suitPatterns, Map<String, int[][]> rankPatterns, MistakeEstimator estimator) {
@@ -47,7 +47,7 @@ public class Recognizer {
         List<String> result = new LinkedList<>();
 
         for (int[][] card : cardList) {
-            var suit = recognizeCard(getSubMatrix(card, suitShiftY, card.length, suitShiftX, card[0].length), suitPatterns);
+            var suit = recognizeCard(getSubMatrix(card, SUIT_SHIFT_Y, card.length, SUIT_SHIFT_X, card[0].length), suitPatterns);
             var rank = recognizeCard(getSubMatrix(card, 0, 50, 0, 40), rankPatterns);
             result.add(rank + suit);
         }
@@ -85,7 +85,7 @@ public class Recognizer {
     private List<int[][]> findCards(BufferedImage image) {
         List<int[][]> cards = new ArrayList<>();
         for (int card = 0; card < cardPositions.length; card++) {
-            BufferedImage cardImage = image.getSubimage(cardPositions[card][0], cardPositions[card][1], cardSizeX, cardSizeY);
+            BufferedImage cardImage = image.getSubimage(cardPositions[card][0], cardPositions[card][1], CARD_SIZE_X, CARD_SIZE_Y);
             var greyCard = rgb2gray(cardImage, true, 150);
             if (calculateSumOfElements(greyCard) != greyCard.length * greyCard[0].length * 255) {
                 cards.add(greyCard);
